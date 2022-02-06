@@ -3,8 +3,11 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/Samarth Sinha/StudyMaterial/app/src/main/res/drawable/ic_baseline_arrow_right_24.xml" value="0.1" />
+        <entry key="..\:/Users/Samarth Sinha/StudyMaterial/app/src/main/res/drawable/roungbackground.xml" value="0.1" />
         <entry key="..\:/Users/Samarth Sinha/StudyMaterial/app/src/main/res/layout/activity_main.xml" value="0.2287179487179487" />
         <entry key="..\:/Users/Samarth Sinha/StudyMaterial/app/src/main/res/layout/fragment_home.xml" value="0.2287179487179487" />
+        <entry key="..\:/Users/Samarth Sinha/StudyMaterial/app/src/main/res/layout/item_recyler_view.xml" value="0.2" />
       </map>
     </option>
   </component>

@@ -3,24 +3,22 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main_navigation"
-    app:startDestination="@id/homeFragment">
+    app:startDestination="@id/homeFragment2">
 
     <fragment
-        android:id="@+id/homeFragment"
-        android:name="com.github.sinhasamarth.studymaterial.HomeFragment"
-        android:label="fragment_home"
-        tools:layout="@layout/fragment_home" >
+        android:id="@+id/finalFragment2"
+        android:name="com.github.sinhasamarth.studymaterial.ui.FinalFragment"
+        android:label="FinalFragment" >
         <action
-            android:id="@+id/action_homeFragment_to_finalFragment"
-            app:destination="@id/finalFragment" />
+            android:id="@+id/action_finalFragment2_to_homeFragment2"
+            app:destination="@id/homeFragment2" />
     </fragment>
     <fragment
-        android:id="@+id/finalFragment"
-        android:name="com.github.sinhasamarth.studymaterial.FinalFragment"
-        android:label="fragment_final"
-        tools:layout="@layout/fragment_final" >
+        android:id="@+id/homeFragment2"
+        android:name="com.github.sinhasamarth.studymaterial.ui.HomeFragment"
+        android:label="HomeFragment" >
         <action
-            android:id="@+id/action_finalFragment_to_homeFragment"
-            app:destination="@id/homeFragment" />
+            android:id="@+id/action_homeFragment2_to_finalFragment2"
+            app:destination="@id/finalFragment2" />
     </fragment>
 </navigation>
