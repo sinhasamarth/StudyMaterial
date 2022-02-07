@@ -47,4 +47,15 @@ class MainViewModel : ViewModel() {
         return true
     }
 
+    fun setBackButton(): Boolean {
+        return if (stackResponse.value.isNullOrEmpty() || stackResponse.value!!.peek() ==  apiResponse.value) {
+            false
+        } else {
+            val temp = stackResponse.value
+            temp?.pop()
+            stackResponse.value = temp!!
+            true
+        }
+    }
+
 }

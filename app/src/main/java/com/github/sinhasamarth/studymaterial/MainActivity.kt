@@ -10,9 +10,12 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        startKoin {
-            androidContext(this@MainActivity)
-            modules(appModules)
+        try {
+            startKoin {
+                androidContext(this@MainActivity)
+                modules(appModules)
+            }
         }
+        catch (e:Exception){}
     }
 }

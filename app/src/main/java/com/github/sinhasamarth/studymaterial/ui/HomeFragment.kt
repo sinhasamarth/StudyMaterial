@@ -41,6 +41,7 @@ class HomeFragment : Fragment(), onClickView {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         addAdapter()
+        setBackButton()
         viewModel.getDataFromApi()
     }
 
@@ -69,5 +70,19 @@ class HomeFragment : Fragment(), onClickView {
         }
     }
 
+    fun setBackButton() {
+        requireActivity()
+            .onBackPressedDispatcher
+            .addCallback(
+                this,
+                object : OnBackPressedCallback(true) {
+                    override fun handleOnBackPressed() {
+                        if (!viewModel.setBackButton()) {
+                            activity?.finish()
+                        }
+                    }
+                }
+            )
+    }
 
 }
