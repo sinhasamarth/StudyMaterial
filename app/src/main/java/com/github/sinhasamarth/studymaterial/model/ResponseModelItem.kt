@@ -1,7 +1,8 @@
 package com.github.sinhasamarth.studymaterial.model
 
 data class ResponseModelItem(
-    val `data`: List<Data>,
+    val `data`: List<ResponseModelItem>,
     val key: String,
-    val meta: Meta
+    val meta: Meta,
+    val value: Any
 )

@@ -5,6 +5,6 @@ import retrofit2.http.GET
 
 interface AllApiCall {
 
-    @GET("/v3/cdd009cf-4b52-40ce-a73b-0faca6cba485")
+    @GET("/v3/a7fa4d82-5479-4945-be59-6813c921e069")
     suspend fun getData(): ResponseModel
 }

@@ -1,9 +1,9 @@
 package com.github.sinhasamarth.studymaterial
 
 import android.util.Log
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.github.sinhasamarth.studymaterial.model.Data
 import com.github.sinhasamarth.studymaterial.model.ResponseModel
 import com.github.sinhasamarth.studymaterial.model.ResponseModelItem
 import com.github.sinhasamarth.studymaterial.model.ResponseView
@@ -14,73 +14,37 @@ import kotlinx.coroutines.withContext
 import java.util.*
 import kotlin.collections.ArrayList
 
-object MainViewModel : ViewModel() {
+class MainViewModel : ViewModel() {
+    val stackResponse = MutableLiveData<Stack<List<ResponseModelItem>>>()
+    val apiResponse = MutableLiveData<ResponseModel>()
+    lateinit var finalData: ResponseModelItem
 
-    val ApiResponse = MutableLiveData<ResponseModel>()
-    val ApiView = MutableLiveData<ArrayList<ResponseView>>()
-    val Stackdata = Stack<List<Data>>()
-
-    fun getAllData() {
-        GlobalScope.launch(Dispatchers.IO) {
-            val cache = Repository.getAllData()
-            withContext(Dispatchers.Main) {
-                ApiResponse.value = cache
-                jsonObjectTraversal()
+    fun getDataFromApi(): ResponseModel? {
+        if (apiResponse.value == null) {
+            GlobalScope.launch(Dispatchers.IO) {
+                val data = Repository.getAllData()
+                withContext(Dispatchers.Main) {
+                    Log.d("Hii", data.toString())
+                    apiResponse.value = data
+                    val intialValue = Stack<List<ResponseModelItem>>()
+                    intialValue.push(data)
+                    stackResponse.postValue(intialValue)
+                }
             }
         }
-
+        return apiResponse.value
     }
 
-    fun jsonObjectTraversal() {
-        val data = ArrayList<ResponseView>()
-        for (r in ApiResponse.value!!) {
-            data.add(
-                ResponseView(
-                    title = r.key,
-                    desc = "NA",
-//                    ImageIcon = r.meta.icon.toString()
-                )
-            )
+    fun itemListens(position: Int): Boolean {
+        if (stackResponse.value?.peek()?.get(position)?.data.isNullOrEmpty()) {
+            finalData = stackResponse.value?.peek()?.get(position)!!
+            return false
+        } else {
+            val temp = stackResponse.value
+            temp?.push(stackResponse.value?.peek()!![position].data)
+            stackResponse.postValue(temp!!)
         }
-        ApiView.value = data
+        return true
     }
-
-    fun onClickView(position: Int) {
-        Log.d("CLICKED ON ", position.toString())
-        if (ApiResponse.value != null) {
-            val s = ApiResponse.value!![position].data
-            Stackdata.push(s)
-            setData()
-            Log.d("CLICKED ON ", ApiView.value.toString())
-        }
-        else{
-
-        }
-    }
-
-    fun setData() {
-        val data = ArrayList<ResponseView>()
-        for (r in Stackdata.peek()) {
-            data.add(
-                ResponseView(
-                    title = r.key,
-                    desc = "NA",
-//                    ImageIcon = r.meta.icon.toString()
-                )
-            )
-        }
-        ApiView.value = data
-    }
-
-    fun removeStackData(): Boolean {
-        if (!Stackdata.isEmpty()) {
-            Stackdata.pop()
-            if (!Stackdata.isEmpty())
-            setData()
-            return true;
-        }
-        return false;
-    }
-
 
 }

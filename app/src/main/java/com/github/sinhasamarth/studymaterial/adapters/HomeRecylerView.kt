@@ -1,5 +1,6 @@
 package com.github.sinhasamarth.studymaterial.adapters
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,11 +10,11 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.github.sinhasamarth.studymaterial.R
 import com.github.sinhasamarth.studymaterial.listerns.onClickView
-import com.github.sinhasamarth.studymaterial.model.ResponseModel
+import com.github.sinhasamarth.studymaterial.model.ResponseModelItem
 import com.github.sinhasamarth.studymaterial.model.ResponseView
 
 class HomeRecylerView(
-    val data: ArrayList<ResponseView>,
+    val data: List<ResponseModelItem>,
     val position: Int = 0,
     val listeners: onClickView
 ) :
@@ -25,8 +26,8 @@ class HomeRecylerView(
         val nextBtn: ImageButton = itemView.findViewById(R.id.nextButoon)
 
 
-        fun setView(responseView: ResponseView) {
-            title.text = responseView.title.uppercase()
+        fun setView(responseView: ResponseModelItem) {
+            title.text = responseView.key.uppercase()
         }
 
     }
@@ -43,6 +44,8 @@ class HomeRecylerView(
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.setView(data[position])
+        holder.title.text = data[position].key.uppercase()
+
         holder.nextBtn.setOnClickListener {
             listeners.onClick(position)
         }
